@@ -9,20 +9,22 @@
 <h1 style="text-align:center">Have Feedback? Leave Us a Message Below!</h1>
 
 <hr />
+
 <div class="row">
     <div class="col-md-4">
         <EditForm method="post" Model="Message" OnValidSubmit="AddMessage" FormName="create" Enhance>
             <DataAnnotationsValidator />
-            <ValidationSummary class="text-danger" role="alert"/>   
+            <ValidationSummary class="text-danger" role="alert" />
             <div class="mb-3">
-                <label for="content" class="form-label">Leave a Message!</label> 
-                <InputText id="content" @bind-Value="Message.Content" class="form-control" /> 
-                <ValidationMessage For="() => Message.Content" class="text-danger" /> 
-            </div>        
+                <label for="content" class="form-label">Leave a Message!</label>
+                <InputText id="content" @bind-Value="Message.Content" class="form-control" />
+                <ValidationMessage For="() => Message.Content" class="text-danger" />
+            </div>
             <button type="submit" class="btn btn-primary">Submit</button>
         </EditForm>
     </div>
 </div>
+
 
 @code {
     [SupplyParameterFromForm]
@@ -33,6 +35,7 @@
     {
         Message.RecipientName = "Administration";
         Message.SenderName = "WILL BE THE USER'S NAME";
+        <!-- Will be the name of the user that is logged in -->
         using var context = DbFactory.CreateDbContext();
         context.Message.Add(Message);
         await context.SaveChangesAsync();
