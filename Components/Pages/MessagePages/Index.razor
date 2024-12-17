@@ -1,0 +1,34 @@
+﻿@page "/messages"
+@using Microsoft.EntityFrameworkCore
+@using Microsoft.AspNetCore.Components.QuickGrid
+@using DogAdoption.Models
+@using DogAdoption.Data
+@implements IAsyncDisposable
+@inject IDbContextFactory<DogAdoption.Data.MessageContext> DbFactory
+
+<PageTitle>Index</PageTitle>
+
+<h1>Index</h1>
+
+<QuickGrid Class="table" Items="context.Message">
+    <PropertyColumn Property="message => message.RecipientName" />
+    <PropertyColumn Property="message => message.SenderName" />
+    <PropertyColumn Property="message => message.Content" />
+
+    <TemplateColumn Context="message">
+        <a href="@($"messages/edit?id={message.Id}")">Edit</a> |
+        <a href="@($"messages/details?id={message.Id}")">Details</a> |
+        <a href="@($"messages/delete?id={message.Id}")">Delete</a>
+    </TemplateColumn>
+</QuickGrid>
+
+@code {
+    private MessageContext context = default!;
+
+    protected override void OnInitialized()
+    {
+        context = DbFactory.CreateDbContext();
+    }
+
+    public async ValueTask DisposeAsync() => await context.DisposeAsync();
+}

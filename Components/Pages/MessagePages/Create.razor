@@ -1,0 +1,41 @@
+﻿@page "/messages/create"
+@using Microsoft.EntityFrameworkCore
+@using DogAdoption.Models
+@inject IDbContextFactory<DogAdoption.Data.MessageContext> DbFactory
+@inject NavigationManager NavigationManager
+
+<PageTitle>Create</PageTitle>
+
+<h1 style="text-align:center">Have Feedback? Leave Us a Message Below!</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <EditForm method="post" Model="Message" OnValidSubmit="AddMessage" FormName="create" Enhance>
+            <DataAnnotationsValidator />
+            <ValidationSummary class="text-danger" role="alert"/>   
+            <div class="mb-3">
+                <label for="content" class="form-label">Leave a Message!</label> 
+                <InputText id="content" @bind-Value="Message.Content" class="form-control" /> 
+                <ValidationMessage For="() => Message.Content" class="text-danger" /> 
+            </div>        
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </EditForm>
+    </div>
+</div>
+
+@code {
+    [SupplyParameterFromForm]
+    private Message Message { get; set; } = new();
+
+    // To protect from overposting attacks, see https://learn.microsoft.com/aspnet/core/blazor/forms/#mitigate-overposting-attacks.
+    private async Task AddMessage()
+    {
+        Message.RecipientName = "Administration";
+        Message.SenderName = "WILL BE THE USER'S NAME";
+        using var context = DbFactory.CreateDbContext();
+        context.Message.Add(Message);
+        await context.SaveChangesAsync();
+        NavigationManager.NavigateTo("/messages/create");
+    }
+}
