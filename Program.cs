@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using DogAdoption.Data;
+using DogAdoption.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContextFactory<DogAdoptionContext>(options =>
@@ -12,6 +13,7 @@ builder.Services.AddQuickGridEntityFrameworkAdapter();
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 // Add services to the container.
+builder.Services.AddSingleton<IUserService, AdminService>();
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
