@@ -26,7 +26,7 @@
     </div>
 </EditForm>
 
-<p>Email value: @loginModel.Email</p>
+<p>Email value: @loginModel!.Email</p>
 <p>@loginMessage</p>
 
 @code {
@@ -50,15 +50,15 @@
     private async Task HandleLogin()
     {
         using var context = DbFactory.CreateDbContext();
-        UserService userService = new UserService(context);
+        UserService._context = context;
 
         // Attempt to login using the provided credentials
-        var user = await userService.LoginAsync(loginModel.Email, loginModel.Password);
+        var user = await UserService.LoginAsync(loginModel.Email, loginModel.Password);
 
         if (user != null)
         {
             // Success: login, redirect user
-            loginMessage = "Login successful!";
+            loginMessage = "Login successful! Welcome " + user.Email;
             if (user.isAdmin)
             {
                 Navigation.NavigateTo("/admin");

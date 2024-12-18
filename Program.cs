@@ -15,7 +15,7 @@ builder.Services.AddQuickGridEntityFrameworkAdapter();
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 // Add services to the container.
-builder.Services.AddSingleton<IUserService, AdminService>();
+builder.Services.AddSingleton<AdminService>();
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 

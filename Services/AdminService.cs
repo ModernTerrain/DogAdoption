@@ -2,7 +2,7 @@
 
 namespace DogAdoption.Services
 {
-    public class AdminService : IUserService
+    public class AdminService
     {
         private List<Users> _users = new List<Users>
     {
