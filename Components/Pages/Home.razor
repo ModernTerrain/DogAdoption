@@ -1,24 +1,53 @@
 ﻿@page "/"
 
 <PageTitle>Home</PageTitle>
-<div>
-<h1>Thank You for Visiting!</h1>
 
-<p>
-    Welcome to Adopt-A-Dog - Finding Forever Homes for Every Dog
-</p>
-<p>
-    At Adopt-A-Dog, we believe every dog deserves a loving home. Whether you’re searching for a playful puppy, a loyal companion, or a gentle senior, our goal is to connect you with the perfect furry friend.
-    Explore our wide selection of adoptable dogs, learn about the adoption process, and discover the joy of rescuing a life. Together, we can give these amazing dogs the happy, healthy futures they deserve.
-    Let’s make tails wag and hearts smile—start your adoption journey today! 🐾
-</p>
-<hr />
+<style>
+    header {
+        background-color: #5566d4;
+        color: white;
+        padding: 20px;
+        text-align: center;
+        margin: auto;
+    }
+
+    .container {
+        max-width: 1000px;
+        margin: 20px auto;
+        padding: 20px;
+        background-color: white;
+        border: 2px solid #5566d4;
+    }
+
+    .footer {
+        max-width: 1000px;
+        margin: 20px auto;
+        padding: 20px;
+        background-color: #5566d4;
+        border: 2px solid black;
+        color: white;
+    }
+</style>
+
+<header>
+    <div>
+        <h1>Thank You For Visiting!</h1>
+        <h3>Welcome to Adopt-A-Dog - Finding Forever Homes for Every Dog </h3>
+
+    </div>
+</header>
+<div class="container">
+    <p>
+        At Adopt-A-Dog, we believe every dog deserves a loving home. Whether you’re searching for a playful puppy, a loyal companion, or a gentle senior, our goal is to connect you with the perfect furry friend.
+        Explore our wide selection of adoptable dogs, learn about the adoption process, and discover the joy of rescuing a life. Together, we can give these amazing dogs the happy, healthy futures they deserve.
+        Let’s make tails wag and hearts smile—start your adoption journey today! 🐾
+    </p>
 </div>
 <div>
     <table style="width:100%">
         <tr>
             <td>
-                <img src="/Images/Dog1.jpg" alt="Dog" style="width:95%; border: 5px solid #555">
+                <img src="/Images/dog.jpeg" alt="Dog" style="width:95%; border: 5px solid #555">
             </td>
             <td style="text-align:center">
                 <p style="font-size: 24px;">Why Adopt?</p>
@@ -62,6 +91,7 @@
 </div>
 <hr />
 <br />
+<div class="footer">
 <footer>
     <table>
         <tr style="width:100%">
@@ -74,3 +104,4 @@
         </tr>
     </table>
 </footer>
+</div>
