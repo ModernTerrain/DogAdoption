@@ -1,0 +1,77 @@
+﻿@page "/users/login"
+@using DogAdoption.Models
+@using DogAdoption.Services
+@using Microsoft.EntityFrameworkCore
+@inject NavigationManager Navigation
+@inject IDbContextFactory<DogAdoption.Data.DogAdoptionContext> DbFactory
+
+
+<h3>Login</h3>
+<EditForm FormName="loginModel" Model="@loginModel" OnValidSubmit="HandleLogin">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div class="form-group">
+        <label for="email">Email</label>
+        <InputText id="email" class="form-control" @bind-Value="loginModel!.Email" />
+    </div>
+
+    <div class="form-group">
+        <label for="password">Password</label>
+        <InputText id="password" type="password" class="form-control" @bind-Value="loginModel!.Password" />
+    </div>
+
+    <div class="form-group">
+        <button class="btn btn-primary" type="submit">Login</button>
+    </div>
+</EditForm>
+
+<p>Email value: @loginModel.Email</p>
+<p>@loginMessage</p>
+
+@code {
+
+    [SupplyParameterFromForm]
+    private LoginModel? loginModel { get; set; }
+
+    protected override void OnInitialized() =>
+        loginModel ??= new();
+
+    private string? loginMessage;
+
+    public class LoginModel
+    {
+        [SupplyParameterFromForm]
+        public string? Email { get; set; }
+        [SupplyParameterFromForm]
+        public string? Password { get; set; }
+    }
+
+    private async Task HandleLogin()
+    {
+        using var context = DbFactory.CreateDbContext();
+        UserService userService = new UserService(context);
+
+        // Attempt to login using the provided credentials
+        var user = await userService.LoginAsync(loginModel.Email, loginModel.Password);
+
+        if (user != null)
+        {
+            // Success: login, redirect user
+            loginMessage = "Login successful!";
+            if (user.isAdmin)
+            {
+                Navigation.NavigateTo("/admin");
+            }
+            else
+            {
+                Navigation.NavigateTo("/");
+            }
+        }
+        else
+        {
+            // Failure: Invalid login
+            loginMessage = "Invalid email or password." + loginModel.Email;
+        }
+    }
+}

@@ -97,7 +97,6 @@ namespace DogAdoption.Data
                 }
                 );
 
-
             if (context == null || context.Form == null)
             {
                 throw new NullReferenceException(
@@ -134,7 +133,6 @@ namespace DogAdoption.Data
                     DateOfInterest = "01/14/2025"
                 }
                 );
-
 
             context.SaveChanges();
         }
