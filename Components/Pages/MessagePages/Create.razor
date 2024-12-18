@@ -34,8 +34,7 @@
     private async Task AddMessage()
     {
         Message.RecipientName = "Administration";
-        Message.SenderName = "WILL BE THE USER'S NAME";
-        <!-- Will be the name of the user that is logged in -->
+        Message.SenderName = "WILL BE THE USER'S NAME"; <!-- Will be the name of the user that is logged in -->
         using var context = DbFactory.CreateDbContext();
         context.Message.Add(Message);
         await context.SaveChangesAsync();
