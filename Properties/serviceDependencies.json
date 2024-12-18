@@ -11,6 +11,6 @@
       "type": "mssql",
       "connectionId": "ConnectionStrings:DogAdopionContext",
       "dynamicId": null
-    }
+    },
   }
 }

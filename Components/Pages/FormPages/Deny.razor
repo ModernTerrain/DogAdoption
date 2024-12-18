@@ -1,0 +1,71 @@
+﻿@page "/forms/deny"
+@using Microsoft.EntityFrameworkCore
+@using DogAdoption.Models
+@inject IDbContextFactory<DogAdoption.Data.DogAdoptionContext> DbFactory
+@inject NavigationManager NavigationManager
+
+<PageTitle>Deny</PageTitle>
+
+<h1>Deny Adoption Application</h1>
+
+<p>Are you sure you want to deny this application?</p>
+<div>
+    <h2>Form</h2>
+    <hr />
+    @if (form is null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else {
+        <dl class="row">
+            <dt class="col-sm-2">Address</dt>
+            <dd class="col-sm-10">@form.Address</dd>
+        </dl>
+        <dl class="row">
+            <dt class="col-sm-2">HouseholdIncome</dt>
+            <dd class="col-sm-10">@form.HouseholdIncome</dd>
+        </dl>
+        <dl class="row">
+            <dt class="col-sm-2">NumberOfPets</dt>
+            <dd class="col-sm-10">@form.NumberOfPets</dd>
+        </dl>
+        <dl class="row">
+            <dt class="col-sm-2">DogOfInterest</dt>
+            <dd class="col-sm-10">@form.DogOfInterest</dd>
+        </dl>
+        <dl class="row">
+            <dt class="col-sm-2">DateOfInterest</dt>
+            <dd class="col-sm-10">@form.DateOfInterest</dd>
+        </dl>
+        <EditForm method="post" Model="form" OnValidSubmit="DeleteForm" FormName="delete" Enhance>
+            <button type="submit" class="btn btn-danger" disabled="@(form is null)">Deny</button> |
+            <a href="/forms">Back to List</a>
+        </EditForm>
+    }
+</div>
+
+@code {
+    private Form? form;
+
+    [SupplyParameterFromQuery]
+    private int Id { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        using var context = DbFactory.CreateDbContext();
+        form = await context.Form.FirstOrDefaultAsync(m => m.Id == Id);
+
+        if (form is null)
+        {
+            NavigationManager.NavigateTo("notfound");
+        }
+    }
+
+    private async Task DeleteForm()
+    {
+        using var context = DbFactory.CreateDbContext();
+        context.Form.Remove(form!);
+        await context.SaveChangesAsync();
+        NavigationManager.NavigateTo("/forms");
+    }
+}

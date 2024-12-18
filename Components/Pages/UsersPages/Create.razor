@@ -1,0 +1,45 @@
+﻿@page "/users/register"
+@using Microsoft.EntityFrameworkCore
+@using DogAdoption.Models
+@inject IDbContextFactory<DogAdoption.Data.DogAdoptionContext> DbFactory
+@inject NavigationManager NavigationManager
+
+<PageTitle>Register</PageTitle>
+
+<h1>Users</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <EditForm method="post" Model="Users" OnValidSubmit="AddUsers" FormName="register" Enhance>
+            <DataAnnotationsValidator />
+            <ValidationSummary class="text-danger" role="alert"/>
+            <div class="mb-3">
+                <label for="email" class="form-label">Email:</label> 
+                <InputText id="email" @bind-Value="Users.Email" class="form-control" /> 
+                <ValidationMessage For="() => Users.Email" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="password" class="form-label">Password:</label> 
+                <InputText id="password" @bind-Value="Users.Password" class="form-control" /> 
+                <ValidationMessage For="() => Users.Password" class="text-danger" /> 
+            </div>        
+               
+            <button type="submit" class="btn btn-primary">Register</button>
+        </EditForm>
+    </div>
+</div>
+
+@code {
+    [SupplyParameterFromForm]
+    private Users Users { get; set; } = new();
+
+    // To protect from overposting attacks, see https://learn.microsoft.com/aspnet/core/blazor/forms/#mitigate-overposting-attacks.
+    private async Task AddUsers()
+    {
+        using var context = DbFactory.CreateDbContext();
+        context.Users.Add(Users);
+        await context.SaveChangesAsync();
+        NavigationManager.NavigateTo("/");
+    }
+}

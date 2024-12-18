@@ -1,6 +1,7 @@
 ﻿@page "/messages/create"
 @using Microsoft.EntityFrameworkCore
 @using DogAdoption.Models
+@using DogAdoption.Services
 @inject IDbContextFactory<DogAdoption.Data.MessageContext> DbFactory
 @inject NavigationManager NavigationManager
 
@@ -34,7 +35,7 @@
     private async Task AddMessage()
     {
         Message.RecipientName = "Administration";
-        Message.SenderName = "WILL BE THE USER'S NAME"; <!-- Will be the name of the user that is logged in -->
+        Message.SenderName = UserService.GetCurrentUserAsync().Email;
         using var context = DbFactory.CreateDbContext();
         context.Message.Add(Message);
         await context.SaveChangesAsync();

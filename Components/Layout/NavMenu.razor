@@ -1,4 +1,11 @@
-﻿<div class="top-row ps-3 navbar navbar-dark">
+﻿@using DogAdoption.Models
+@using DogAdoption.Services
+@using Microsoft.EntityFrameworkCore
+@inject NavigationManager Navigation
+@inject IDbContextFactory<DogAdoption.Data.DogAdoptionContext> DbFactory
+@rendermode InteractiveServer
+
+<div class="top-row ps-3 navbar navbar-dark">
     <div class="container-fluid">
         <a class="navbar-brand" href="">Adopt-A-Dog</a>
     </div>
@@ -18,37 +25,83 @@
             <NavLink class="nav-link" href="Dogs">
                 <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> See Dogs
             </NavLink>
-        </div>
-
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="About">
-                <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> About
+            <NavLink class="nav-link" href="dogs">
+                <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> View Dogs
             </NavLink>
         </div>
 
         <div class="nav-item px-3">
-            <NavLink class="nav-link" href="Policy">
-                <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Policy
+            <NavLink class="nav-link" href="userforms">
+                <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Create Adoption Form
             </NavLink>
         </div>
 
-        @if () <!-- Within these paranthesis is a condition to verify person is logged in -->
+        @if (UserService.GetCurrentUserAsync() == null)
         {
             <div class="nav-item px-3">
-                <NavLink class="nav-link" href="/messages/create">
-                    <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Send Feeback
+                <NavLink class="nav-link" href="users/register">
+                    <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Register
+                </NavLink>
+            </div>
+
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="users/login">
+                    <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Login
                 </NavLink>
             </div>
         }
 
-        @if () <!-- Within these paranthesis is a condition to verify person is logged in as an admin -->
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="about">
+                <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> About
+            </NavLink>
+        </div>
+
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="policy">
+                <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Policy
+            </NavLink>
+        </div>
+
+        @if(UserService.GetCurrentUserAsync() != null){
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="/messages/create">
+                <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Send Feeback
+            </NavLink>
+        </div>
+        }
+
+        @if(UserService.GetCurrentUserAsync() != null && UserService.GetCurrentUserAsync().isAdmin)
         {
             <div class="nav-item px-3">
                 <NavLink class="nav-link" href="/messages">
                     <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> View Feedback
                 </NavLink>
             </div>
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="/forms">
+                    <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Pending Applications
+                </NavLink>
+            </div>
+
         }
-        </nav>
-    </div>
+
+        @if (UserService.GetCurrentUserAsync() != null)
+        {
+            <div class="nav-item px-3">
+                <button class="nav-link" @onclick="Logout">Logout</button>
+            </div>
+        }
+    </nav>
+</div>
+
+@code {
+
+    private void Logout()
+    {
+        UserService.LogoutAsync();
+
+        Navigation.NavigateTo("/");
+    }
+}
 

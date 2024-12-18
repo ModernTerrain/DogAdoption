@@ -8,6 +8,5 @@ namespace DogAdoption.Models
         public string? RecipientName { get; set; }  
         public string? SenderName { get; set; }
         public string? Content {  get; set; }
-
     }
 }

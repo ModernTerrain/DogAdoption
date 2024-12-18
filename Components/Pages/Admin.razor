@@ -1,0 +1,28 @@
+﻿@page "/admin"
+@using DogAdoption.Models
+@using DogAdoption.Services
+
+<h3>Admin Page</h3>
+
+@if (currentUser == null)
+{
+    <p>You must be logged in to access this page.</p>
+}
+else if (currentUser.isAdmin)
+{
+    <p>Welcome, Admin!</p>
+    <!-- Admin-specific content here -->
+}
+else
+{
+    <p>You do not have access to this page.</p>
+}
+
+@code {
+    private Users currentUser;
+
+    protected override async Task OnInitializedAsync()
+    {
+        currentUser = UserService.GetCurrentUserAsync();
+    }
+}

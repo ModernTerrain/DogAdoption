@@ -14,12 +14,6 @@
     <PropertyColumn Property="message => message.RecipientName" />
     <PropertyColumn Property="message => message.SenderName" />
     <PropertyColumn Property="message => message.Content" />
-
-    <TemplateColumn Context="message">
-        <a href="@($"messages/edit?id={message.Id}")">Edit</a> |
-        <a href="@($"messages/details?id={message.Id}")">Details</a> |
-        <a href="@($"messages/delete?id={message.Id}")">Delete</a>
-    </TemplateColumn>
 </QuickGrid>
 
 @code {
