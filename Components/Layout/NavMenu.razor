@@ -11,25 +11,30 @@
     </div>
 </div>
 
+<head>
+    <!-- Add Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+</head>
+
 <input type="checkbox" title="Navigation menu" class="navbar-toggler" />
 
 <div class="nav-scrollable" onclick="document.querySelector('.navbar-toggler').click()">
     <nav class="flex-column">
         <div class="nav-item px-3">
             <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <span class="bi bi-house-door-fill-nav-menu" aria-hidden="true"></span> Home
+                <span class="fas fa-home" style="margin-right: 10px;" aria-hidden="true"></span> Home
             </NavLink>
         </div>
 
         <div class="nav-item px-3">
             <NavLink class="nav-link" href="dogs">
-                <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> View Dogs
+                <span class="fas fa-dog" style="margin-right: 10px;" aria-hidden="true"></span> View Dogs
             </NavLink>
         </div>
 
         <div class="nav-item px-3">
             <NavLink class="nav-link" href="userforms">
-                <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Create Adoption Form
+                <span class="fas fa-file" style="margin-right: 10px;" aria-hidden="true"></span> Create Adoption Form
             </NavLink>
         </div>
 
@@ -37,27 +42,33 @@
         {
             <div class="nav-item px-3">
                 <NavLink class="nav-link" href="users/register">
-                    <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Register
+                    <span class="fas fa-registered" style="margin-right: 10px;" aria-hidden="true"></span> Register
                 </NavLink>
             </div>
 
             <div class="nav-item px-3">
                 <NavLink class="nav-link" href="users/login">
-                    <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Login
+                    <span class="fas fa-right-to-bracket" style="margin-right: 10px;" aria-hidden="true"></span> Login
                 </NavLink>
             </div>
         }
 
         <div class="nav-item px-3">
             <NavLink class="nav-link" href="about">
-                <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> About
+                <span class="fas fa-address-card" style="margin-right: 10px;" aria-hidden="true"></span> About
+            </NavLink>
+        </div>
+
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="/contacts">
+                <span class="fas fa-user" style="margin-right: 10px;" aria-hidden="true"></span> Contacts
             </NavLink>
         </div>
 
         @if(UserService.GetCurrentUserAsync() != null){
         <div class="nav-item px-3">
             <NavLink class="nav-link" href="/messages/create">
-                <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Send Feeback
+                    <span class="fas fa-comment" style="margin-right: 10px;" aria-hidden="true"></span> Send Feeback
             </NavLink>
         </div>
         }
@@ -66,7 +77,7 @@
         {
             <div class="nav-item px-3">
                 <NavLink class="nav-link" href="/messages">
-                    <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> View Feedback
+                    <span class="fa-solid fa-comment" style="margin-right: 10px;" aria-hidden="true"></span> View Feedback
                 </NavLink>
             </div>
         }
@@ -77,6 +88,7 @@
                 <button class="nav-link" @onclick="Logout">Logout</button>
             </div>
         }
+
     </nav>
 </div>
 

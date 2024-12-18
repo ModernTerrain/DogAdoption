@@ -1,0 +1,111 @@
+﻿@page "/contacts"
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us | Happy Paws Dog Adoption</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f8f8;
+        }
+
+        header {
+            background-color: #5566d4;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            margin: 0;
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            max-width: 1100px;
+            margin: 30px auto;
+            padding: 20px;
+            background-color: white;
+            border: 2px solid #5566d4;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .contact-section {
+            flex: 1;
+            min-width: 300px;
+            margin-right: 20px;
+        }
+
+        .dog-image-section {
+            flex: 1;
+            min-width: 300px;
+            text-align: center;
+        }
+
+        .content {
+            line-height: 1.6;
+            font-size: 1.1em;
+        }
+
+        .contact-info {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+            .contact-info i {
+                font-size: 1.5em;
+                margin-right: 15px;
+                color: #5566d4;
+            }
+
+        .dog-image-section img {
+            max-width: 55%;
+            height: auto;
+            border-radius: 8px;
+        }
+        
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>How to Contact Us</h1>
+    </header>
+
+    <div class="container">
+        <!-- Contact Section -->
+        <div class="contact-section">
+            <div class="contact-info">
+                <i class="fas fa-phone-alt"></i>
+                <p class="content">Phone Number: (123) 456-7890</p>
+            </div>
+            <div class="contact-info">
+                <i class="fas fa-envelope"></i>
+                <p class="content">Email: AdoptADog@gmail.com</p>
+            </div>
+            <div class="contact-info">
+                <i class="fab fa-instagram"></i>
+                <p class="content">Instagram: AdoptADogShelter</p>
+            </div>
+            <div class="contact-info">
+                <i class="fab fa-tiktok"></i>
+                <p class="content">TikTok: AdoptADogShelter</p>
+            </div>
+        </div>
+
+        <!-- Dog Image Section -->
+        <div class="dog-image-section">
+            <img src="/images/Braxton_Dog.jpg" alt="Happy Dog">
+        </div>
+    </div>
+
+</body>
+</html>
