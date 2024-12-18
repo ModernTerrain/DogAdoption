@@ -36,7 +36,6 @@
     {
         Message.RecipientName = "Administration";
         Message.SenderName = UserService.GetCurrentUserAsync().Email;
-        <!-- Will be the name of the user that is logged in -->
         using var context = DbFactory.CreateDbContext();
         context.Message.Add(Message);
         await context.SaveChangesAsync();

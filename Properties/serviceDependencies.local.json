@@ -1,14 +1,18 @@
 {
   "dependencies": {
     "mssql1": {
-      "secretStore": null,
-      "resourceId": null,
-      "type": "mssql.local",
-      "connectionId": "ConnectionStrings:DogAdoptionContext"
-    },
-    "mssql2": {
       "type": "mssql.local",
       "connectionId": "ConnectionStrings:MessageContext"
+    },
+    "secrets1": {
+      "type": "secrets.user"
+    },
+    "mssql2": {
+      "serviceConnectorResourceId": "",
+      "secretStore": "LocalSecretsFile",
+      "type": "mssql.local",
+      "connectionId": "ConnectionStrings:DogAdopionContext",
+      "dynamicId": null
     }
   }
 }

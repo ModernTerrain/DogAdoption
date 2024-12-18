@@ -2,11 +2,15 @@
   "dependencies": {
     "mssql1": {
       "type": "mssql",
-      "connectionId": "ConnectionStrings:DogAdoptionContext"
+      "connectionId": "ConnectionStrings:MessageContext"
+    },
+    "secrets1": {
+      "type": "secrets"
     },
     "mssql2": {
       "type": "mssql",
-      "connectionId": "ConnectionStrings:MessageContext"
-    }
+      "connectionId": "ConnectionStrings:DogAdopionContext",
+      "dynamicId": null
+    },
   }
 }
