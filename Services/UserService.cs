@@ -4,28 +4,28 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DogAdoption.Services
 {
-    public class UserService : IUserService
+    public static class UserService
     {
-        private readonly DogAdoptionContext? _context;
-        private Users? _currentUser;
+        public static DogAdoptionContext? _context { get; set; }
+        private static Users? _currentUser;
 
-        public UserService(DogAdoptionContext context)
-        {
-            _context = context;
-        }
-
-        public Task<Users> GetCurrentUserAsync()
+        public static Users GetCurrentUserAsync()
         {
             // Return the currently logged-in user
-            return Task.FromResult(_currentUser);
+            return _currentUser;
         }
 
-        public async Task<Users> LoginAsync(string email, string password)
+        public static async Task<Users> LoginAsync(string email, string password)
         {
             // Find user by email and password
-            var user = await _context.Users
+            _currentUser = await _context.Users
                                       .FirstOrDefaultAsync(u => u.Email == email && u.Password == password);
-            return user; // Returns null if no user found
+            return _currentUser; // Returns null if no user found
+        }
+
+        public static void LogoutAsync()
+        {
+            _currentUser = null;
         }
     }
 }
