@@ -7,7 +7,6 @@ using DogAdoption.Services;
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContextFactory<MessageContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("MessageContext") ?? throw new InvalidOperationException("Connection string 'MessageContext' not found.")));
-
 builder.Services.AddDbContextFactory<DogAdoptionContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DogAdoptionContext") ?? throw new InvalidOperationException("Connection string 'DogAdoptionContext' not found.")));
 
