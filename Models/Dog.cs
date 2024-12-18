@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DogAdoption.Models
 {
@@ -32,7 +33,9 @@ namespace DogAdoption.Models
         [StringLength(60, MinimumLength = 3)]
         public string? Status { get; set; }
 
+        [Required]
         [DataType(DataType.Currency)]
+        [Column(TypeName = "decimal(18, 2)")]
         public decimal AdoptionFee { get; set; }
     }
 }
