@@ -107,7 +107,7 @@
     <PropertyColumn Property="dog => dog.Status" />
     <PropertyColumn Property="dog => dog.AdoptionFee" />
 
-    @if (UserService.GetCurrentUserAsync().isAdmin)
+    @if (UserService.GetCurrentUserAsync() != null && UserService.GetCurrentUserAsync().isAdmin)
     {
         <TemplateColumn Context="dog">
             <a href="@($"dogs/edit?id={dog.Id}")">Edit</a> |
