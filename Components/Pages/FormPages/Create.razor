@@ -1,0 +1,64 @@
+﻿@page "/forms/create"
+@using Microsoft.EntityFrameworkCore
+@using DogAdoption.Models
+@inject IDbContextFactory<DogAdoption.Data.DogAdoptionContext> DbFactory
+@inject NavigationManager NavigationManager
+
+<PageTitle>Create</PageTitle>
+
+<h1>Create</h1>
+
+<h2>Form</h2>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <EditForm method="post" Model="Form" OnValidSubmit="AddForm" FormName="create" Enhance>
+            <DataAnnotationsValidator />
+            <ValidationSummary class="text-danger" role="alert"/>
+            <div class="mb-3">
+                <label for="address" class="form-label">Address:</label> 
+                <InputText id="address" @bind-Value="Form.Address" class="form-control" aria-required="true"/> 
+                <ValidationMessage For="() => Form.Address" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="householdincome" class="form-label">HouseholdIncome:</label> 
+                <InputNumber id="householdincome" @bind-Value="Form.HouseholdIncome" class="form-control" aria-required="true"/> 
+                <ValidationMessage For="() => Form.HouseholdIncome" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="numberofpets" class="form-label">NumberOfPets:</label> 
+                <InputNumber id="numberofpets" @bind-Value="Form.NumberOfPets" class="form-control" aria-required="true"/> 
+                <ValidationMessage For="() => Form.NumberOfPets" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="dogofinterest" class="form-label">DogOfInterest:</label> 
+                <InputText id="dogofinterest" @bind-Value="Form.DogOfInterest" class="form-control" aria-required="true"/> 
+                <ValidationMessage For="() => Form.DogOfInterest" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="dateofinterest" class="form-label">DateOfInterest:</label> 
+                <InputText id="dateofinterest" @bind-Value="Form.DateOfInterest" class="form-control" aria-required="true"/> 
+                <ValidationMessage For="() => Form.DateOfInterest" class="text-danger" /> 
+            </div>        
+            <button type="submit" class="btn btn-primary">Create</button>
+        </EditForm>
+    </div>
+</div>
+
+<div>
+    <a href="/">Back to Home</a>
+</div>
+
+@code {
+    [SupplyParameterFromForm]
+    private Form Form { get; set; } = new();
+
+    // To protect from overposting attacks, see https://learn.microsoft.com/aspnet/core/blazor/forms/#mitigate-overposting-attacks.
+    private async Task AddForm()
+    {
+        using var context = DbFactory.CreateDbContext();
+        context.Form.Add(Form);
+        await context.SaveChangesAsync();
+        NavigationManager.NavigateTo("/submissionsuccess");
+    }
+}
