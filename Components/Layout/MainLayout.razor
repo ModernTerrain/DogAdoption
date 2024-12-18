@@ -1,4 +1,8 @@
 ﻿@inherits LayoutComponentBase
+@using DogAdoption.Services
+@using DogAdoption.Models
+@using Microsoft.EntityFrameworkCore
+@inject NavigationManager Navigation
 
 <div class="page">
     <div class="sidebar">
@@ -6,10 +10,16 @@
     </div>
 
     <main>
+        @if(UserService.GetCurrentUserAsync() != null){
         <div class="top-row px-4">
-            <a href="https://learn.microsoft.com/aspnet/core/" target="_blank">About</a>
+            <p>@UserService.GetCurrentUserAsync().Email</p> 
         </div>
-
+        }
+        @if (UserService.GetCurrentUserAsync() == null)
+        {
+            <div class="top-row px-4">
+            </div>
+        }
         <article class="content px-4">
             @Body
         </article>
