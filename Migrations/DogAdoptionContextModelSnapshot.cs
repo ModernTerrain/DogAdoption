@@ -71,6 +71,36 @@ namespace DogAdoption.Migrations
                     b.ToTable("Dog");
                 });
 
+            modelBuilder.Entity("DogAdoption.Models.Form", b =>
+                {
+                    b.Property<int>("FormID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("FormID"));
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DateOfInterest")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DogOfInterest")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("HouseholdIncome")
+                        .HasColumnType("decimal(18, 2)");
+
+                    b.Property<int>("NumberOfPets")
+                        .HasColumnType("int");
+
+                    b.HasKey("FormID");
+
+                    b.ToTable("Form");
+                    
             modelBuilder.Entity("DogAdoption.Models.Users", b =>
                 {
                     b.Property<int>("Id")
