@@ -30,10 +30,24 @@
         @if (UserService.GetCurrentUserAsync() != null && UserService.GetCurrentUserAsync().isAdmin == false)
         {
             <div class="nav-item px-3">
+                <NavLink class="nav-link" href="/dogs/user">
+                    <span class="fas fa-dog" style="margin-right: 10px;" aria-hidden="true"></span> View Dogs
+                </NavLink>
+            </div>
+            <div class="nav-item px-3">
                 <NavLink class="nav-link" href="/messages/create">
                     <span class="fas fa-comment" style="margin-right: 10px;" aria-hidden="true"></span> Send Feeback
                 </NavLink>
             </div>
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="userforms">
+                    <span class="fas fa-file" style="margin-right: 10px;" aria-hidden="true"></span> Create Adoption Form
+                </NavLink>
+            </div>
+        }
+
+        @if (UserService.GetCurrentUserAsync() == null)
+        {
             <div class="nav-item px-3">
                 <NavLink class="nav-link" href="/dogs/user">
                     <span class="fas fa-dog" style="margin-right: 10px;" aria-hidden="true"></span> View Dogs
@@ -49,12 +63,6 @@
                 </NavLink>
             </div>
         }
-
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="userforms">
-                <span class="fas fa-file" style="margin-right: 10px;" aria-hidden="true"></span> Create Adoption Form
-            </NavLink>
-        </div>
 
         @if (UserService.GetCurrentUserAsync() == null)
         {
