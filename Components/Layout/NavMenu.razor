@@ -1,4 +1,11 @@
-﻿<div class="top-row ps-3 navbar navbar-dark">
+﻿@using DogAdoption.Models
+@using DogAdoption.Services
+@using Microsoft.EntityFrameworkCore
+@inject NavigationManager Navigation
+@inject IDbContextFactory<DogAdoption.Data.DogAdoptionContext> DbFactory
+@rendermode InteractiveServer
+
+<div class="top-row ps-3 navbar navbar-dark">
     <div class="container-fluid">
         <a class="navbar-brand" href="">DogAdoption</a>
     </div>
@@ -26,17 +33,20 @@
             </NavLink>
         </div>
 
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="users/register">
-                <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Register
-            </NavLink>
-        </div>
+        @if (UserService.GetCurrentUserAsync() == null)
+        {
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="users/register">
+                    <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Register
+                </NavLink>
+            </div>
 
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="users/login">
-                <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Login
-            </NavLink>
-        </div>
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="users/login">
+                    <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Login
+                </NavLink>
+            </div>
+        }
 
         <div class="nav-item px-3">
             <NavLink class="nav-link" href="about">
@@ -44,19 +54,47 @@
             </NavLink>
         </div>
 
-        <!-- Should only be seen if logged in -->
+        @if(UserService.GetCurrentUserAsync() != null){
         <div class="nav-item px-3">
             <NavLink class="nav-link" href="/messages/create">
                 <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Send Feeback
             </NavLink>
         </div>
+        }
 
-        <!-- Should only be seen if an admin -->
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="/messages">
-                <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> View Feedback
-            </NavLink>
-        </div>
+        @if(UserService.GetCurrentUserAsync() != null && UserService.GetCurrentUserAsync().isAdmin)
+        {
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="/messages">
+                    <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> View Feedback
+                </NavLink>
+            </div>
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="/forms">
+                    <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Pending Applications
+                </NavLink>
+            </div>
+        }
+
+        @if (UserService.GetCurrentUserAsync() != null)
+        {
+            <div class="nav-item px-3">
+                <button class="nav-link" @onclick="Logout">Logout</button>
+            </div>
+        }
     </nav>
 </div>
+
+@code {
+
+    private string error = "Not yet!";
+
+    private void Logout()
+    {
+      error = "Got here!";
+        UserService.LogoutAsync();
+
+        Navigation.NavigateTo("/");
+    }
+}
 
