@@ -54,6 +54,12 @@
             </NavLink>
         </div>
 
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="policy">
+                <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Policy
+            </NavLink>
+        </div>
+
         @if(UserService.GetCurrentUserAsync() != null){
         <div class="nav-item px-3">
             <NavLink class="nav-link" href="/messages/create">
