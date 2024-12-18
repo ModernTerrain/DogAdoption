@@ -15,12 +15,6 @@
         </div>
 
         <div class="nav-item px-3">
-            <NavLink class="nav-link" href="counter">
-                <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Counter
-            </NavLink>
-        </div>
-
-        <div class="nav-item px-3">
             <NavLink class="nav-link" href="dogs">
                 <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> View Dogs
             </NavLink>
@@ -47,6 +41,20 @@
         <div class="nav-item px-3">
             <NavLink class="nav-link" href="about">
                 <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> About
+            </NavLink>
+        </div>
+
+        <!-- Should only be seen if logged in -->
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="/messages/create">
+                <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Send Feeback
+            </NavLink>
+        </div>
+
+        <!-- Should only be seen if an admin -->
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="/messages">
+                <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> View Feedback
             </NavLink>
         </div>
     </nav>
