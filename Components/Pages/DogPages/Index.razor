@@ -3,12 +3,13 @@
 @using Microsoft.AspNetCore.Components.QuickGrid
 @using DogAdoption.Models
 @using DogAdoption.Data
+@using DogAdoption.Services
 @implements IAsyncDisposable
 @inject IDbContextFactory<DogAdoption.Data.DogAdoptionContext> DbFactory
 
-<PageTitle>Index</PageTitle>
+<PageTitle>Dogs</PageTitle>
 
-<h1>Index</h1>
+<h1>All Available Dogs</h1>
 
 <p>
     <a href="dogs/create">Create New</a>
@@ -106,11 +107,14 @@
     <PropertyColumn Property="dog => dog.Status" />
     <PropertyColumn Property="dog => dog.AdoptionFee" />
 
-    <TemplateColumn Context="dog">
-        <a href="@($"dogs/edit?id={dog.Id}")">Edit</a> |
-        <a href="@($"dogs/details?id={dog.Id}")">Details</a> |
-        <a href="@($"dogs/delete?id={dog.Id}")">Delete</a>
-    </TemplateColumn>
+    @if (UserService.GetCurrentUserAsync().isAdmin)
+    {
+        <TemplateColumn Context="dog">
+            <a href="@($"dogs/edit?id={dog.Id}")">Edit</a> |
+            <a href="@($"dogs/details?id={dog.Id}")">Details</a> |
+            <a href="@($"dogs/delete?id={dog.Id}")">Delete</a>
+        </TemplateColumn>
+    }
 </QuickGrid>
 
 @code {
