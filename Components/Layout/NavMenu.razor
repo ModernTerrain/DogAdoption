@@ -26,8 +26,19 @@
             </NavLink>
         </div>
 
+        @* Admin's dont see, Users do *@
+        @if (UserService.GetCurrentUserAsync() != null && UserService.GetCurrentUserAsync().isAdmin == false)
+        {
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="/messages/create">
+                    <span class="fas fa-comment" style="margin-right: 10px;" aria-hidden="true"></span> Send Feeback
+                </NavLink>
+            </div>
+        }
+
+        
         <div class="nav-item px-3">
-            <NavLink class="nav-link" href="dogs">
+            <NavLink class="nav-link" href="/dogs/user">
                 <span class="fas fa-dog" style="margin-right: 10px;" aria-hidden="true"></span> View Dogs
             </NavLink>
         </div>
@@ -65,19 +76,25 @@
             </NavLink>
         </div>
 
-        @if(UserService.GetCurrentUserAsync() != null){
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="/messages/create">
-                    <span class="fas fa-comment" style="margin-right: 10px;" aria-hidden="true"></span> Send Feeback
-            </NavLink>
-        </div>
-        }
+
 
         @if(UserService.GetCurrentUserAsync() != null && UserService.GetCurrentUserAsync().isAdmin)
         {
             <div class="nav-item px-3">
                 <NavLink class="nav-link" href="/messages">
                     <span class="fa-solid fa-comment" style="margin-right: 10px;" aria-hidden="true"></span> View Feedback
+                </NavLink>
+            </div>
+
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="/users">
+                    <span class="fa-solid fa-comment" style="margin-right: 10px;" aria-hidden="true"></span> Manage Users
+                </NavLink>
+            </div>
+
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="/dogs">
+                    <span class="fas fa-dog" style="margin-right: 10px;" aria-hidden="true"></span> Manage Dogs
                 </NavLink>
             </div>
         }
