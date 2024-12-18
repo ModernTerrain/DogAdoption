@@ -97,6 +97,42 @@ namespace DogAdoption.Data
                 }
                 );
 
+            if (context == null || context.Form == null)
+            {
+                throw new NullReferenceException(
+                    "Null BlazorBookContext or Dog DbSet");
+            }
+            if (context.Form.Any())
+            {
+                return;
+            }
+
+            context.Form.AddRange(
+                new Form
+                {
+                    Address = "139 St North",
+                    HouseholdIncome = 48000,
+                    NumberOfPets = 1,
+                    DogOfInterest = "Alan",
+                    DateOfInterest = "12/27/2024"
+                },
+                new Form
+                {
+                    Address = "2453 Willow St",
+                    HouseholdIncome = 63000,
+                    NumberOfPets = 4,
+                    DogOfInterest = "Jason",
+                    DateOfInterest = "01/03/2025"
+                },
+                new Form
+                {
+                    Address = "1490 East Rd",
+                    HouseholdIncome = 97000,
+                    NumberOfPets = 0,
+                    DogOfInterest = "Kay",
+                    DateOfInterest = "01/14/2025"
+                }
+                );
 
             if (context == null || context.Form == null)
             {

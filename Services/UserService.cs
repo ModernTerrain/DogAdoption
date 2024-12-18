@@ -4,10 +4,15 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DogAdoption.Services
 {
-    public class UserService(DogAdoptionContext context) : IUserService
+    public class UserService : IUserService
     {
-        private readonly DogAdoptionContext _context = context;
-        private Users _currentUser;
+        private readonly DogAdoptionContext? _context;
+        private Users? _currentUser;
+
+        public UserService(DogAdoptionContext context)
+        {
+            _context = context;
+        }
 
         public Task<Users> GetCurrentUserAsync()
         {

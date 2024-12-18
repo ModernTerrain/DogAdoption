@@ -78,6 +78,11 @@ namespace DogAdoption.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    b.Property<int>("FormID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("FormID"));
 
                     b.Property<string>("Address")
                         .IsRequired()
@@ -102,6 +107,10 @@ namespace DogAdoption.Migrations
                     b.ToTable("Form");
                 });
 
+                    b.HasKey("FormID");
+
+                    b.ToTable("Form");
+                    
             modelBuilder.Entity("DogAdoption.Models.Users", b =>
                 {
                     b.Property<int>("Id")
