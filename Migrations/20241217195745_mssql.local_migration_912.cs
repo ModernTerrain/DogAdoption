@@ -24,7 +24,10 @@ namespace DogAdoption.Migrations
                 {
                     table.PrimaryKey("PK_Users", x => x.Id);
                 });
+
         }
+
+
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -32,5 +35,6 @@ namespace DogAdoption.Migrations
             migrationBuilder.DropTable(
                 name: "Users");
         }
+
     }
 }

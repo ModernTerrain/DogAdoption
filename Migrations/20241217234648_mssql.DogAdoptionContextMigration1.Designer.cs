@@ -3,6 +3,7 @@ using DogAdoption.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DogAdoption.Migrations
 {
     [DbContext(typeof(DogAdoptionContext))]
-    partial class DogAdoptionContextModelSnapshot : ModelSnapshot
+    [Migration("20241217234648_mssql.DogAdoptionContextMigration1")]
+    partial class mssqlDogAdoptionContextMigration1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -78,11 +81,6 @@ namespace DogAdoption.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-                    b.Property<int>("FormID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("FormID"));
 
                     b.Property<string>("Address")
                         .IsRequired()
@@ -107,10 +105,6 @@ namespace DogAdoption.Migrations
                     b.ToTable("Form");
                 });
 
-                    b.HasKey("FormID");
-
-                    b.ToTable("Form");
-                    
             modelBuilder.Entity("DogAdoption.Models.Users", b =>
                 {
                     b.Property<int>("Id")

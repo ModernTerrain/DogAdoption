@@ -1,0 +1,26 @@
+﻿@page "/userforms"
+@using Microsoft.EntityFrameworkCore
+@using Microsoft.AspNetCore.Components.QuickGrid
+@using DogAdoption.Models
+@using DogAdoption.Data
+@implements IAsyncDisposable
+@inject IDbContextFactory<DogAdoption.Data.DogAdoptionContext> DbFactory
+
+<PageTitle>UserIndex</PageTitle>
+
+<h1>Dog Adoption Form</h1>
+
+<p>
+    <a href="forms/create">Create New</a>
+</p>
+
+@code {
+    private DogAdoptionContext context = default!;
+
+    protected override void OnInitialized()
+    {
+        context = DbFactory.CreateDbContext();
+    }
+
+    public async ValueTask DisposeAsync() => await context.DisposeAsync();
+}

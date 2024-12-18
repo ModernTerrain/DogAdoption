@@ -1,0 +1,109 @@
+﻿@page "/forms/edit"
+@using Microsoft.EntityFrameworkCore
+@using DogAdoption.Models
+@inject IDbContextFactory<DogAdoption.Data.DogAdoptionContext> DbFactory
+@inject NavigationManager NavigationManager
+
+<PageTitle>Edit</PageTitle>
+
+<h1>Edit</h1>
+
+<h2>Form</h2>
+<hr />
+@if (Form is null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <div class="row">
+        <div class="col-md-4">
+            <EditForm method="post" Model="Form" OnValidSubmit="UpdateForm" FormName="edit" Enhance>
+                <DataAnnotationsValidator />
+                <ValidationSummary role="alert"/>
+                <input type="hidden" name="Form.Id" value="@Form.Id" />
+                <div class="mb-3">
+                    <label for="address" class="form-label">Address:</label>
+                    <InputText id="address" @bind-Value="Form.Address" class="form-control" aria-required="true"/>
+                    <ValidationMessage For="() => Form.Address" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="householdincome" class="form-label">HouseholdIncome:</label>
+                    <InputNumber id="householdincome" @bind-Value="Form.HouseholdIncome" class="form-control" aria-required="true"/>
+                    <ValidationMessage For="() => Form.HouseholdIncome" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="numberofpets" class="form-label">NumberOfPets:</label>
+                    <InputNumber id="numberofpets" @bind-Value="Form.NumberOfPets" class="form-control" aria-required="true"/>
+                    <ValidationMessage For="() => Form.NumberOfPets" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="dogofinterest" class="form-label">DogOfInterest:</label>
+                    <InputText id="dogofinterest" @bind-Value="Form.DogOfInterest" class="form-control" aria-required="true"/>
+                    <ValidationMessage For="() => Form.DogOfInterest" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="dateofinterest" class="form-label">DateOfInterest:</label>
+                    <InputText id="dateofinterest" @bind-Value="Form.DateOfInterest" class="form-control" aria-required="true"/>
+                    <ValidationMessage For="() => Form.DateOfInterest" class="text-danger" />
+                </div>
+                <button type="submit" class="btn btn-primary">Save</button>
+            </EditForm>
+        </div>
+    </div>
+}
+
+<div>
+    <a href="/forms">Back to List</a>
+</div>
+
+@code {
+    [SupplyParameterFromQuery]
+    private int Id { get; set; }
+
+    [SupplyParameterFromForm]
+    private Form? Form { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        using var context = DbFactory.CreateDbContext();
+        Form ??= await context.Form.FirstOrDefaultAsync(m => m.Id == Id);
+
+        if (Form is null)
+        {
+            NavigationManager.NavigateTo("notfound");
+        }
+    }
+
+    // To protect from overposting attacks, enable the specific properties you want to bind to.
+    // For more information, see https://learn.microsoft.com/aspnet/core/blazor/forms/#mitigate-overposting-attacks.
+    private async Task UpdateForm()
+    {
+        using var context = DbFactory.CreateDbContext();
+        context.Attach(Form!).State = EntityState.Modified;
+
+        try
+        {
+            await context.SaveChangesAsync();
+        }
+        catch (DbUpdateConcurrencyException)
+        {
+            if (!FormExists(Form!.Id))
+            {
+                NavigationManager.NavigateTo("notfound");
+            }
+            else
+            {
+                throw;
+            }
+        }
+
+        NavigationManager.NavigateTo("/forms");
+    }
+
+    private bool FormExists(int id)
+    {
+        using var context = DbFactory.CreateDbContext();
+        return context.Form.Any(e => e.Id == id);
+    }
+}

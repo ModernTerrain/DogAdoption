@@ -19,5 +19,6 @@ namespace DogAdoption.Data
         public DbSet<DogAdoption.Models.Form> Form { get; set; } = default!;
 
         public DbSet<DogAdoption.Models.Users> Users { get; set; } = default!;
+        public DbSet<DogAdoption.Models.Form> Form { get; set; } = default!;
     }
 }

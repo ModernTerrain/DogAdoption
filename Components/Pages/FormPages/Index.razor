@@ -1,0 +1,40 @@
+﻿@page "/forms"
+@using Microsoft.EntityFrameworkCore
+@using Microsoft.AspNetCore.Components.QuickGrid
+@using DogAdoption.Models
+@using DogAdoption.Data
+@implements IAsyncDisposable
+@inject IDbContextFactory<DogAdoption.Data.DogAdoptionContext> DbFactory
+
+<PageTitle>Index</PageTitle>
+
+<h1>Index</h1>
+
+<p>
+    <a href="forms/create">Create New</a>
+</p>
+
+<QuickGrid Class="table" Items="context.Form">
+    <PropertyColumn Property="form => form.Address" />
+    <PropertyColumn Property="form => form.HouseholdIncome" />
+    <PropertyColumn Property="form => form.NumberOfPets" />
+    <PropertyColumn Property="form => form.DogOfInterest" />
+    <PropertyColumn Property="form => form.DateOfInterest" />
+
+    <TemplateColumn Context="form">
+        <a href="@($"forms/edit?id={form.Id}")">Edit</a> |
+        <a href="@($"forms/details?id={form.Id}")">Details</a> |
+        <a href="@($"forms/delete?id={form.Id}")">Delete</a>
+    </TemplateColumn>
+</QuickGrid>
+
+@code {
+    private DogAdoptionContext context = default!;
+
+    protected override void OnInitialized()
+    {
+        context = DbFactory.CreateDbContext();
+    }
+
+    public async ValueTask DisposeAsync() => await context.DisposeAsync();
+}
